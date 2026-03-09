@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <section class="bg-white mx-15 p-9" id="main" style="font-family: 'Poppins', sans-serif;">
+      <div class="flex flex-col justify-center items-start py-5" id="title and greeting">
+        <span class="text-gray-900 font-bold text-xl text-shadow-sm">Dashboard</span>
+        <p class="text-gray-500 font-semibold text-base tracking-tight">Bienvenido de nuevo, admin.</p>
+      </div>
+      <div class="flex justify-between" id="stats cards">
+        <div class="flex-col justify-center items-start m-1 p-1 border-1 border-gray-300/30 shadow-md rounded-md">
+          <div class="grid grid-cols-4 m-3">
+            <div class="flex-col col-span-3">
+              <p class="text-gray-500 font-medium text-sm">Usuarios Totales</p>
+              <div class="text-gray-900 text-2xl font-bold">8,249</div>
+              <div class="text-gray-500 font-medium text-sm tracking-tight">Aumentó 1,093 esta semana</div>
+            </div>
+            <div class="grid grid-rows-4">
+              <p class="bg-green-200/70 text-green-800 font-bold text-sm items-center rounded-full mx-2 px-1.5">+12%</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex-col justify-center items-start m-1 p-1 border-1 border-gray-300/30 shadow-md rounded-md">
+          <div class="grid grid-cols-4 m-3">
+            <div class="flex-col col-span-3">
+              <p class="text-gray-500 font-medium text-sm">Ingresos</p>
+              <div class="text-gray-900 text-2xl font-bold">$24,780</div>
+              <div class="text-gray-500 font-medium text-sm tracking-tight">$2,567 más que el mes pasado</div>
+            </div>
+            <div class="grid grid-rows-4">
+              <p class="bg-green-200/70 text-green-800 font-bold text-sm items-center rounded-full mx-2 px-1.5">+8%</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex-col justify-center items-start m-1 p-1 border-1 border-gray-300/30 shadow-md rounded-md">
+          <div class="grid grid-cols-4 m-3">
+            <div class="flex-col col-span-3">
+              <p class="text-gray-500 font-medium text-sm">Sesiones activas</p>
+              <div class="text-gray-900 text-2xl font-bold">1,342</div>
+              <div class="text-gray-500 font-medium text-sm tracking-tight">42 menos que ayer</div>
+            </div>
+            <div class="grid grid-rows-4">
+              <p class="bg-red-200/70 text-red-800 font-bold text-sm items-center rounded-full mx-2 px-1.5">-3%</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex-col justify-center items-start m-1 p-1 border-1 border-gray-300/30 shadow-md rounded-md">
+          <div class="grid grid-cols-4 m-3">
+            <div class="flex-col col-span-3">
+              <p class="text-gray-500 font-medium text-sm">Tasa de Conversión</p>
+              <div class="text-gray-900 text-2xl font-bold">24.8%</div>
+              <div class="text-gray-500 font-medium text-sm tracking-tight">1.2% más que el promedio</div>
+            </div>
+            <div class="grid grid-rows-4">
+              <p class="bg-green-200/70 text-green-800 font-bold text-sm items-center rounded-full mx-2 px-1.5">+5%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 justify-between" id="histcharts">
+        <div class="border-1 border-gray-300/30 shadow-md m-2 p-2">
+          <p class="text-gray-800 font-bold text-normal p-2">Crecimiento de usuarios</p>
+          <canvas id="lineChart"></canvas>
+        </div>
+        <div class="border-1 border-gray-300/30 shadow-md m-2 p-2">
+          <p class="text-gray-800 font-bold text-normal p-2 ">Ingresos Mensuales</p>
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+    </section>
+    <script>
+    // Datos para la gráfica de línea
+    const lineCtx = document.getElementById('lineChart').getContext('2d');
+    const lineChart = new Chart(lineCtx, {
+      type: 'line',
+      data: {
+        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        datasets: [{
+          label: 'Usuarios 2024',
+          data: [5000, 5500, 6000, 6200, 6800, 7200, 7500, 8000, 8249, 8500, 8800, 9100],
+          borderColor: 'rgb(59, 130, 246)',
+          backgroundColor: 'rgba(59, 130, 246, 0.1)',
+          tension: 0.3,
+          fill: true
+        }, {
+          label: 'Usuarios 2023',
+          data: [4000, 4200, 4500, 4800, 5100, 5400, 5600, 5900, 6200, 6500, 6800, 7000],
+          borderColor: 'rgb(107, 114, 128)',
+          backgroundColor: 'rgba(107, 114, 128, 0.1)',
+          tension: 0.3,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Datos para la gráfica de barras
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    const barChart = new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        datasets: [{
+          label: 'Ingresos 2024 ($)',
+          data: [15000, 16500, 18000, 19500, 21000, 22500, 23000, 24000, 24780, 26000, 27500, 29000],
+          backgroundColor: 'rgba(59, 130, 246, 0.8)'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+  </body>
+</html>
